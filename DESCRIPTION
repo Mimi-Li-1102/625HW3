@@ -1,0 +1,10 @@
+Package: HW625
+Title: Extend summary() function by adding intervals for each coefficient.
+Version: 0.0.0.9000
+Authors@R: Mimi, Li
+Description: Extend the summary() function for linear models by adding CI for each coefficient.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
