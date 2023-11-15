@@ -1,13 +1,15 @@
 Package: HW625
 Title: Summary of Information For Linear Regression Model 
 Version: 0.0.0.9000
-Authors@R: Mimi, Li
+Author: Mimi Li (mimili@umich.edu)
+Maintainer: Mimi Li <mimili@umich.edu>
 Description: The YourPackageName R package provides a set of functions to enhance linear regression analysis in R. It includes tools for calculating and summarizing various statistical measures, including coefficients, standard errors, t-statistics, p-values, confidence intervals, residual information, R-squared values, and F-statistics.
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
-Key Functions:
+Key Functions: 
 - `obtain_SSE`: Calculate the Sum of Squared Errors in a linear model.
 - `obtain_se`: Obtain standard errors of the coefficients in a linear model.
 - `obtain_t_stats`: Calculate t-statistics for the coefficients in a linear model.
@@ -16,8 +18,8 @@ Key Functions:
 - `obtain_r_square`: Calculate R-squared and adjusted R-squared values in a linear model.
 - `obtain_f_stats`: Calculate F-statistics and associated p-values in a linear model.
 - `lm_summary`: Generate a summary table with detailed information on coefficients, intervals, and additional model statistics.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE, collate = TRUE)
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3

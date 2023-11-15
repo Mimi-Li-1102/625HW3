@@ -1,6 +1,5 @@
 #' lm_summary
 #'
-#' @importFrom HW625 help_functions
 #' @param model linear model object
 #' @param Clevel the confidence level for the intervals. Default is 0.95.
 #' @return an summary table with information of coefficient and additional model information.

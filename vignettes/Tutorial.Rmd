@@ -57,4 +57,6 @@ Obtain the summary for the linear model:
 ```{r}
 # Apply lm_summary at confidence level 0.99
 info_lm <- lm_summary(model, 0.99)
+sm1 = summary(model)
+
 ```
