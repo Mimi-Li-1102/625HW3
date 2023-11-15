@@ -1,5 +1,6 @@
 #' lm_summary
-#' @import HW625
+#'
+#' @importFrom HW625 help_functions
 #' @param model linear model object
 #' @param Clevel the confidence level for the intervals. Default is 0.95.
 #' @return an summary table with information of coefficient and additional model information.
@@ -34,17 +35,28 @@ lm_summary <- function(model, Clevel = 0.95) {
     Estimate = coeff,
     SE = se,
     t_Stat = t_stats,
-    p_Value = formatC(p_values, format = "e", digits = 4),
+    p_Value = format(p_values, digits = 4, scientific = TRUE),
     CI = sprintf("(%0.4f, %0.4f)", lower_b, upper_b),
     Significant = significant
   )
 
+  # Obtain the formula of the model
+  formula <- as.character(formula(model))
+
+  # Print the model formula
+  cat("Call:\n")
+  cat(formula, "\n", "\n")
+
+
   # Print the formatted coefficient table
   cat("Coefficients:\n")
-  cat(sprintf("%-15s %-15s %-15s %-15s %-15s %-15s\n", "Coefficient", "Estimate", "SE", "t_Stat", "p_Value", "Significant"))
+  cat(sprintf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", "Coefficient", "Estimate", "SE", "CI", "t_Stat", "p_Value", "Significant"))
   for (i in seq_along(coeff)) {
-    cat(sprintf("%-15s %-15.4f %-15.4f %-15.4f %-15s %-15s\n",
-                names(coeff)[i], coeff[i], se[i], t_stats[i], p_values[i],
+    cat(sprintf("%-15s %-15.4f %-15.4f %-15s %-15.4f %-15s %-15s\n",
+                names(coeff)[i], coeff[i], se[i],
+                sprintf("(%0.4f, %0.4f)", lower_b[i], upper_b[i]),
+                t_stats[i],
+                format(p_values, digits = 4, scientific = TRUE)[i],
                 ifelse(significant[i], "TRUE", "FALSE")))
   }
 
@@ -60,4 +72,5 @@ lm_summary <- function(model, Clevel = 0.95) {
   # Return the summary table invisibly
   invisible(summary_table)
 }
+
 

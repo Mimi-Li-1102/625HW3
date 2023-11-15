@@ -15,7 +15,6 @@ Fit a linear model use mtcars dataset:
 ```{r}
 # Fit a linear model
 model <- lm(mpg ~ hp + wt, data = mtcars)
-summary(model)
 ```
 
 Find SSE of the linear model:
@@ -55,5 +54,6 @@ obtain_f_stats(model)
 
 Obtain the summary for the linear model:
 ```{r}
-lm_summary(model)
+# Apply lm_summary at confidence level 0.99
+info_lm <- lm_summary(model, 0.99)
 ```

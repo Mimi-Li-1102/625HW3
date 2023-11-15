@@ -190,7 +190,9 @@ obtain_f_stats <- function(model){
   # Calculate p-value
   p_value <- pf(F_stats, (p - 1), df_resi, lower.tail = FALSE)
 
-  return(list(f_statistic = F_stats, df_model = p - 1, df_resi = df_resi, p_value = p_value))
+  formatted_p_values <- format(p_value, digits = 4, scientific = TRUE)
+
+  return(list(f_statistic = F_stats, df_model = p - 1, df_resi = df_resi, p_value = formatted_p_values))
 }
 
 
