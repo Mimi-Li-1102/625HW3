@@ -10,7 +10,7 @@ obtain_p_value(model)
 \item{model}{linear model object}
 }
 \value{
-p values of the linear model
+p values of each t-statstic for the linear model
 }
 \description{
 obtain_p_value

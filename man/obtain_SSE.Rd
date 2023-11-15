@@ -10,7 +10,7 @@ obtain_SSE(model)
 \item{model}{linear model object}
 }
 \value{
-SSE in the linear model
+SSE of the linear model
 }
 \description{
 obtain_SSE

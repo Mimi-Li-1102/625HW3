@@ -1,7 +1,7 @@
 #' obtain_SSE
 #'
 #' @param model linear model object
-#' @return SSE in the linear model
+#' @return SSE of the linear model
 #' @examples
 #' #load the mtcars dataset
 #' data(mtcars)
@@ -13,9 +13,10 @@
 #' obtain_SSE(example_model)
 #' @export
 obtain_SSE <- function(model){
-  #obtain residuals
+  # Obtain residuals
   residual <- model$residuals
-  #calculate SSE
+
+  # Calculate SSE
   sse <- sum(residual ^ 2)
   return(sse)
 }
@@ -35,9 +36,10 @@ obtain_SSE <- function(model){
 #' obtain_se(example_model)
 #' @export
 obtain_se <- function(model){
-  #get the variance-covariance matrix
+  # Get the variance-covariance matrix
   mtrx <- vcov(model)
-  #calculate standard error
+
+  # Calculate standard error
   se <- sqrt(diag(mtrx))
   return(se)
 }
@@ -64,7 +66,7 @@ obtain_t_stats <- function(model){
 #' obtain_p_value
 #'
 #' @param model linear model object
-#' @return p values of the linear model
+#' @return p values of each t-statstic for the linear model
 #' @examples
 #' #load the mtcars dataset
 #' data(mtcars)
@@ -76,12 +78,16 @@ obtain_t_stats <- function(model){
 #' obtain_p_value(example_model)
 #' @export
 obtain_p_value <- function(model){
-  #obtain the degrees of freedom associated with the residuals
+  # Obtain the degrees of freedom associated with the residuals
   df_resi <- df.residual(model)
-  #calculate p-values
-  p_values <- 2 * (1 - pt(abs(obtain_t_stats(model)), df_resi))
+
+  # Calculate p-values
+  t_stats <- obtain_t_stats(model)
+  p_values <- 2 * (1 - pt(abs(t_stats), df_resi))
   return(p_values)
 }
+
+
 
 #' obtain_residual_info
 #'
@@ -98,10 +104,10 @@ obtain_p_value <- function(model){
 #' obtain_residual_info(example_model)
 #' @export
 obtain_residual_info <- function(model){
-  #calculate residuals df
+  # Calculate residuals df
   df_resi <- df.residual(model)
 
-  #calculate residual standard error
+  # Calculate residual standard error
   se <- sqrt(obtain_SSE(model) / df_resi)
 
   return(list(residual_se = se, df_resi = df_resi))
@@ -122,27 +128,27 @@ obtain_residual_info <- function(model){
 #' obtain_r_square(example_model)
 #' @export
 obtain_r_square <- function(model){
-  #obtain y_hat
+  # Obtain y_hat
   y_hat <- model$fitted.values
 
-  #obtain observed value of y
-  y <- y_hat + obtain_residuals(model)
+  # Obtain observed value of y
+  y <- y_hat + model$residuals
 
-  #obtain mean of observed y
+  # Obtain mean of observed y
   y_bar <- mean(y)
 
-  #obtain SSY and SSE
+  # Obtain SSY and SSE
   SSY <- sum((y - y_bar) ^ 2)
   SSE <- obtain_SSE(model)
 
-  #calculate R by 1 - SSE/SSY
+  # Calculate R by 1 - SSE/SSY
   r_square <- 1 - SSE / SSY
 
-  #obtain n and degrees of freedom of residuals
+  # Obtain n and degrees of freedom of residuals
   n <- length(model$residuals)
   df_resi <- df.residual(model)
 
-  #calculate adjusted R square
+  # Calculate adjusted R square
   adj_r_square <- 1 - (SSE / df_resi) / (SSY / (n - 1))
 
   return(list(r_square = r_square, adj_r_square = adj_r_square))
@@ -164,19 +170,27 @@ obtain_r_square <- function(model){
 #' obtain_f_stats(example_model)
 #' @export
 obtain_f_stats <- function(model){
-  #calculate SSR and SSE
-  SSR <- sum(model$residuals ^ 2)
+  # Calculate SSR and SSE
+  y_hat <- model$fitted.values
+  y_bar <- mean(y_hat + model$residuals)
+  SSR <- sum((y_hat - y_bar) ^ 2)
   SSE <- obtain_SSE(model)
 
-  #obtain degrees of freedom of residuals and p
+  # Obtain degrees of freedom of residuals and p
   df_resi <- df.residual(model)
   p <- length(coef(model))
 
-  #calculate F statistic
-  f_stats <- (SSR / (p-1)) / (SSE / df_resi)
+  # Calculate mean square regression (MSR) and mean square error (MSE)
+  MSR <- SSR / (p - 1)
+  MSE <- SSE / (df_resi)
 
-  #calculate p-value
-  p_value <- pf(f_stats, (p - 1), df_resi, lower.tail = FALSE)
-  return(list(f_statistic = f_stats, df_model = p - 1, df_resi = df_resi, p_value = p_value))
+  # Calculate F statistic
+  F_stats <- MSR / MSE
+
+  # Calculate p-value
+  p_value <- pf(F_stats, (p - 1), df_resi, lower.tail = FALSE)
+
+  return(list(f_statistic = F_stats, df_model = p - 1, df_resi = df_resi, p_value = p_value))
 }
+
 

@@ -5,4 +5,55 @@ vignette: >
   %\VignetteIndexEntry{HW625 Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+devtools::load_all()
+data(mtcars)
+```
 
+Fit a linear model use mtcars dataset:
+```{r}
+# Fit a linear model
+model <- lm(mpg ~ hp + wt, data = mtcars)
+summary(model)
+```
+
+Find SSE of the linear model:
+```{r}
+obtain_SSE(model)
+```
+
+Find coefficients standard errors of the linear model:
+```{r}
+obtain_se(model)
+```
+
+Find t-statistic of the linear model:
+```{r}
+obtain_t_stats(model)
+```
+
+Find p values of each t-statistic for the linear model:
+```{r}
+obtain_p_value(model)
+```
+
+Find residual standard error and degrees of freedom:
+```{r}
+obtain_residual_info(model)
+```
+
+Find R-square and adjusted R-square:
+```{r}
+obtain_r_square(model)
+```
+
+Find F statistic and its p-value of the linear model:
+```{r}
+obtain_f_stats(model)
+```
+
+Obtain the summary for the linear model:
+```{r}
+lm_summary(model)
+```

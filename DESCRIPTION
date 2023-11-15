@@ -3,6 +3,10 @@ Title: Summary of Information For Linear Regression Model
 Version: 0.0.0.9000
 Authors@R: Mimi, Li
 Description: The YourPackageName R package provides a set of functions to enhance linear regression analysis in R. It includes tools for calculating and summarizing various statistical measures, including coefficients, standard errors, t-statistics, p-values, confidence intervals, residual information, R-squared values, and F-statistics.
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
 Key Functions:
 - `obtain_SSE`: Calculate the Sum of Squared Errors in a linear model.
 - `obtain_se`: Obtain standard errors of the coefficients in a linear model.

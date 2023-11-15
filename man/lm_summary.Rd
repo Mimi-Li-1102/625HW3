@@ -21,7 +21,7 @@ lm_summary
 #load the mtcars dataset
 data(mtcars)
 
-#lit a linear regression model
+#fit a linear regression model
 example_model <- lm(mpg ~ hp + wt, data = mtcars)
 
 #obtain summary of the linear model
