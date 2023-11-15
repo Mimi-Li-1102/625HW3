@@ -14,7 +14,8 @@ data(mtcars)
 Fit a linear model use mtcars dataset:
 ```{r}
 # Fit a linear model
-model <- lm(mpg ~ hp + wt, data = mtcars)
+model <- lm(mpg ~ wt + hp + qsec + am, data = mtcars)
+
 ```
 
 Find SSE of the linear model:
