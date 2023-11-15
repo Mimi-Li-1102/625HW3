@@ -15,3 +15,13 @@ coefficients standard errors of the linear model
 \description{
 obtain_se
 }
+\examples{
+#load the mtcars dataset
+data(mtcars)
+
+#lit a linear regression model
+example_model <- lm(mpg ~ hp + wt, data = mtcars)
+
+#obtain coefficients standard errors
+obtain_se(example_model)
+}

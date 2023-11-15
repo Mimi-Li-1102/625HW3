@@ -4,7 +4,14 @@
 #' @param Clevel the confidence level for the intervals. Default is 0.95.
 #' @return an summary table with information of coefficient and additional model information.
 #' @examples
-#' x = 1
+#' #load the mtcars dataset
+#' data(mtcars)
+#'
+#' #lit a linear regression model
+#' example_model <- lm(mpg ~ hp + wt, data = mtcars)
+#'
+#' #obtain summary of the linear model
+#' lm_summary(example_model)
 #' @export
 lm_summary <- function(model, Clevel = 0.95) {
   # Calculate coefficients, standard errors, t-stats, and p-values

@@ -15,3 +15,13 @@ p values of the linear model
 \description{
 obtain_p_value
 }
+\examples{
+#load the mtcars dataset
+data(mtcars)
+
+#lit a linear regression model
+example_model <- lm(mpg ~ hp + wt, data = mtcars)
+
+#obtain p values
+obtain_p_value(example_model)
+}

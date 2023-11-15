@@ -15,3 +15,13 @@ t statistics of the linear model
 \description{
 obtain_t_stats
 }
+\examples{
+#load the mtcars dataset
+data(mtcars)
+
+#lit a linear regression model
+example_model <- lm(mpg ~ hp + wt, data = mtcars)
+
+#obtain t statistics
+obtain_t_stats(example_model)
+}

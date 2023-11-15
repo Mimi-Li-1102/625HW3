@@ -15,3 +15,13 @@ F statistic and its p-value of the linear model
 \description{
 obtain_F_stats
 }
+\examples{
+#load the mtcars dataset
+data(mtcars)
+
+#lit a linear regression model
+example_model <- lm(mpg ~ hp + wt, data = mtcars)
+
+#obtain F statistic and its p-value
+obtain_f_stats(example_model)
+}

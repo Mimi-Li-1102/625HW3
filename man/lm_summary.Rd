@@ -18,5 +18,12 @@ an summary table with information of coefficient and additional model informatio
 lm_summary
 }
 \examples{
-x = 1
+#load the mtcars dataset
+data(mtcars)
+
+#lit a linear regression model
+example_model <- lm(mpg ~ hp + wt, data = mtcars)
+
+#obtain summary of the linear model
+lm_summary(example_model)
 }
