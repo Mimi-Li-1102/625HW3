@@ -12,8 +12,7 @@ lm_summary(model, Clevel = 0.95)
 \item{Clevel}{the confidence level for the intervals. Default is 0.95.}
 }
 \value{
-an extended summary table with the coefficient estimates and
-confidence intervals.
+an summary table with information of coefficient and additional model information.
 }
 \description{
 lm_summary

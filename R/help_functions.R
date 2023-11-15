@@ -2,9 +2,8 @@
 #'
 #' @param model linear model object
 #' @return SSE in the linear model
-#' @export
-#'
 #' @examples
+#' @export
 obtain_SSE <- function(model){
   #obtain residuals
   residual <- model$residuals
@@ -17,10 +16,8 @@ obtain_SSE <- function(model){
 #'
 #' @param model linear model object
 #' @return coefficients standard errors of the linear model
-#' @export
-#'
 #' @examples
-
+#' @export
 obtain_se <- function(model){
   #get the variance-covariance matrix
   mtrx <- vcov(model)
@@ -33,10 +30,8 @@ obtain_se <- function(model){
 #'
 #' @param model linear model object
 #' @return t statistics of the linear model
-#' @export
-#'
 #' @examples
-
+#' @export
 obtain_t_stats <- function(model){
   t_stats <- coef(model) / obtain_se(model)
   return(t_stats)
@@ -46,10 +41,8 @@ obtain_t_stats <- function(model){
 #'
 #' @param model linear model object
 #' @return p values of the linear model
-#' @export
-#'
 #' @examples
-
+#' @export
 obtain_p_value <- function(model){
   #obtain the degrees of freedom associated with the residuals
   df_resi <- df.residual(model)
@@ -62,9 +55,8 @@ obtain_p_value <- function(model){
 #'
 #' @param model linear model object
 #' @return residual standard error and degrees of freedom of the linear model
-#' @export
-#'
 #' @examples
+#' @export
 obtain_residual_info <- function(model){
   #calculate residuals df
   df_resi <- df.residual(model)
@@ -79,10 +71,8 @@ obtain_residual_info <- function(model){
 #'
 #' @param model linear model object
 #' @return R square and adjusted R square of the linear model
-#' @export
-#'
 #' @examples
-#'
+#' @export
 obtain_r_square <- function(model){
   #obtain y_hat
   y_hat <- model$fitted.values
@@ -115,11 +105,8 @@ obtain_r_square <- function(model){
 #'
 #' @param model linear model object
 #' @return F statistic and its p-value of the linear model
-#' @export
-#'
 #' @examples
-#'
-
+#' @export
 obtain_f_stats <- function(model){
   #calculate SSR and SSE
   SSR <- sum(model$residuals ^ 2)

@@ -1,12 +1,11 @@
 #' lm_summary
-#'
+#' @importFrom HW625 help_functions
 #' @param model linear model object
 #' @param Clevel the confidence level for the intervals. Default is 0.95.
 #' @return an summary table with information of coefficient and additional model information.
-#' @export
-#'
 #' @examples
 #' x = 1
+#' @export
 lm_summary <- function(model, Clevel = 0.95) {
   # Calculate coefficients, standard errors, t-stats, and p-values
   coeff <- coef(model)
