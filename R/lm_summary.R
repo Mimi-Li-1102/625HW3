@@ -34,9 +34,9 @@ lm_summary <- function(model, Clevel = 0.95) {
     Coefficient = names(coeff),
     Estimate = coeff,
     SE = se,
+    CI = sprintf("(%0.4f, %0.4f)", lower_b, upper_b),
     t_Stat = t_stats,
     p_Value = format(p_values, digits = 4, scientific = TRUE),
-    CI = sprintf("(%0.4f, %0.4f)", lower_b, upper_b),
     Significant = significant
   )
 
@@ -60,13 +60,28 @@ lm_summary <- function(model, Clevel = 0.95) {
                 ifelse(significant[i], "TRUE", "FALSE")))
   }
 
-  # Obtain and print additional model information
+  # Obtain residuals information
+  residual <- model$residuals
+  min_r <- min(residual)
+  q1_r <- quantile(residual, 0.25)
+  median_r <- median(residual)
+  q3_r <- quantile(residual, 0.75)
+  max_r <- max(residual)
   residual_info <- obtain_residual_info(model)
+
+  # Print residuals information
+  cat("\nResiduals:\n")
+  cat(sprintf("%-15s %-15s %-15s %-15s %-15s\n", "Min", "1Q", "Median", "3Q", "Max"))
+  cat(sprintf("%-15.3f %-15.3f %-15.3f %-15.3f %-15.3f\n", min_r, q1_r, median_r, q3_r, max_r))
+
+  cat("Residual standard error:", round(residual_info$residual_se, 4), "on", residual_info$df_resi, "degrees of freedom\n")
+
+  # Obtain other information of the model
   r_squared_info <- obtain_r_square(model)
   f_stat_info <- obtain_f_stats(model)
 
-  cat("\nResidual standard error:", round(residual_info$residual_se, 4), "on", residual_info$df_resi, "degrees of freedom\n")
-  cat("Multiple R-squared:", round(r_squared_info$r_square, 4), ",\tAdjusted R-squared:", round(r_squared_info$adj_r_square, 4), "\n")
+  # Print other information of the model
+  cat("\nMultiple R-squared:", round(r_squared_info$r_square, 4), ",\tAdjusted R-squared:", round(r_squared_info$adj_r_square, 4), "\n")
   cat("F-statistic:", round(f_stat_info$f_statistic, 4), "on", f_stat_info$df_model, "and", f_stat_info$df_resi, "DF,  p-value:", format(f_stat_info$p_value, scientific = TRUE), "\n")
 
   # Return the summary table invisibly
