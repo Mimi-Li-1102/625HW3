@@ -1,12 +1,11 @@
 ## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
-devtools::load_all()
+library(HW625)
 data(mtcars)
 
 ## -----------------------------------------------------------------------------
 # Fit a linear model
 model <- lm(mpg ~ wt + hp + qsec + am, data = mtcars)
-
 
 ## -----------------------------------------------------------------------------
 obtain_SSE(model)
@@ -32,4 +31,9 @@ obtain_f_stats(model)
 ## -----------------------------------------------------------------------------
 # Apply lm_summary at confidence level 0.99
 info_lm <- lm_summary(model, 0.99)
+
+## -----------------------------------------------------------------------------
+# Obtain estimates
+est <- info_lm$Estimate
+print(est)
 
