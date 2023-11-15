@@ -18,3 +18,6 @@ confidence intervals.
 \description{
 lm_summary
 }
+\examples{
+x = 1
+}

@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#'
+#' x = 1
 lm_summary <- function(model, Clevel = 0.95) {
   # Obtain the original summary function
   old_summary <- summary(model)
