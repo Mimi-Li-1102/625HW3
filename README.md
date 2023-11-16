@@ -34,4 +34,4 @@ install.packages("HW625")
 
 ## Usage
 
-For detailed examples and use cases, please refer to the package vignettes.
+For detailed examples and use cases, please refer to the vignettes.

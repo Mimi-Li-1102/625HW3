@@ -6,7 +6,7 @@
 #'
 #' @param model linear model object
 #' @param Clevel the confidence level for the intervals. Default is 0.95.
-#' @return an summary information of coefficients, residuals, and additional model information.
+#' @return summary information of coefficients, residuals, and additional model information.
 #' @examples
 #' data(mtcars)
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)

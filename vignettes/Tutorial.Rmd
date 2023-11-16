@@ -9,7 +9,6 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 library(HW625)
 data(mtcars)
-
 # For efficiency comparing
 library(bench)
 ```
