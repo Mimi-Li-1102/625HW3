@@ -13,7 +13,7 @@ obtain_r_square(model)
 R square and adjusted R square of the linear model
 }
 \description{
-obtain_r_square
+This function provides the R-square and adjusted R-square of the linear model.
 }
 \examples{
 data(mtcars)

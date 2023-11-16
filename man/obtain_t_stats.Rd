@@ -10,10 +10,10 @@ obtain_t_stats(model)
 \item{model}{linear model object}
 }
 \value{
-t statistics of the linear model
+t-statistics
 }
 \description{
-obtain_t_stats
+This function provides the t-statistics for each coefficient in the linear model.
 }
 \examples{
 data(mtcars)

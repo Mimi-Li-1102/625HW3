@@ -13,7 +13,7 @@ obtain_p_value(model)
 p values corresponding to each t-statistic for the linear model
 }
 \description{
-obtain_p_value
+This function provides the p-values corresponding to the t-statistics for each coefficient in the linear model.
 }
 \examples{
 data(mtcars)

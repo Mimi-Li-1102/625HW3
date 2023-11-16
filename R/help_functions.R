@@ -1,5 +1,9 @@
 #' obtain_SSE
 #'
+#' @description
+#' This function gives the SSE of the linear model.
+#'
+#'
 #' @param model linear model object
 #' @return SSE of the linear model
 #' @export
@@ -21,8 +25,11 @@ obtain_SSE <- function(model){
 
 #' obtain_se
 #'
+#' @description
+#' This function provides the standard errors for each coefficient in the linear model.
+#'
 #' @param model linear model object
-#' @return coefficients standard errors of the linear model
+#' @return coefficients standard errors
 #' @export
 #' @examples
 #' data(mtcars)
@@ -42,8 +49,11 @@ obtain_se <- function(model){
 
 #' obtain_t_stats
 #'
+#' @description
+#' This function provides the t-statistics for each coefficient in the linear model.
+#'
 #' @param model linear model object
-#' @return t statistics of the linear model
+#' @return t-statistics
 #' @export
 #' @examples
 #' data(mtcars)
@@ -58,6 +68,9 @@ obtain_t_stats <- function(model){
 
 
 #' obtain_p_value
+#'
+#' @description
+#' This function provides the p-values corresponding to the t-statistics for each coefficient in the linear model.
 #'
 #' @param model linear model object
 #' @return p values corresponding to each t-statistic for the linear model
@@ -81,8 +94,11 @@ obtain_p_value <- function(model){
 
 #' obtain_residual_info
 #'
+#' @description
+#' This function provides the standard error and degrees of freedom for the residuals in the linear model.
+#'
 #' @param model linear model object
-#' @return residual standard error and degrees of freedom of the linear model
+#' @return residuals standard error and degrees of freedom of the linear model
 #' @export
 #' @examples
 #' data(mtcars)
@@ -102,6 +118,9 @@ obtain_residual_info <- function(model){
 
 
 #' obtain_r_square
+#'
+#' @description
+#' This function provides the R-square and adjusted R-square of the linear model.
 #'
 #' @param model linear model object
 #' @return R square and adjusted R square of the linear model
@@ -142,8 +161,11 @@ obtain_r_square <- function(model){
 
 #' obtain_F_stats
 #'
+#' @description
+#' This function gives F statistic, numerator degrees of freedom, residuals degrees of freedom, and the corresponding p-value of the linear model.
+#'
 #' @param model linear model object
-#' @return F statistic, df of residuals and the model, and the corresponding p-value.
+#' @return F statistic, numerator degrees of freedom, residuals degrees of freedom, and the corresponding p-value.
 #' @export
 #' @examples
 #' data(mtcars)

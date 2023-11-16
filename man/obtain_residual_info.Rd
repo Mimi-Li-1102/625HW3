@@ -10,10 +10,10 @@ obtain_residual_info(model)
 \item{model}{linear model object}
 }
 \value{
-residual standard error and degrees of freedom of the linear model
+residuals standard error and degrees of freedom of the linear model
 }
 \description{
-obtain_residual_info
+This function provides the standard error and degrees of freedom for the residuals in the linear model.
 }
 \examples{
 data(mtcars)

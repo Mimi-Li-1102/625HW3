@@ -10,10 +10,10 @@ obtain_f_stats(model)
 \item{model}{linear model object}
 }
 \value{
-F statistic, df of residuals and the model, and the corresponding p-value.
+F statistic, numerator degrees of freedom, residuals degrees of freedom, and the corresponding p-value.
 }
 \description{
-obtain_F_stats
+This function gives F statistic, numerator degrees of freedom, residuals degrees of freedom, and the corresponding p-value of the linear model.
 }
 \examples{
 data(mtcars)

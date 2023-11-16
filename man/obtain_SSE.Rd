@@ -13,7 +13,7 @@ obtain_SSE(model)
 SSE of the linear model
 }
 \description{
-obtain_SSE
+This function gives the SSE of the linear model.
 }
 \examples{
 data(mtcars)

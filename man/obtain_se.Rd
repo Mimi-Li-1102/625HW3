@@ -10,10 +10,10 @@ obtain_se(model)
 \item{model}{linear model object}
 }
 \value{
-coefficients standard errors of the linear model
+coefficients standard errors
 }
 \description{
-obtain_se
+This function provides the standard errors for each coefficient in the linear model.
 }
 \examples{
 data(mtcars)
