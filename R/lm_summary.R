@@ -89,4 +89,3 @@ lm_summary <- function(model, Clevel = 0.95) {
   invisible(summary_table)
 }
 
-
