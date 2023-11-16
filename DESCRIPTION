@@ -7,6 +7,7 @@ Description: The YourPackageName R package provides a set of functions to enhanc
 Suggests:
     knitr,
     rmarkdown,
+    bench,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Key Functions: 
