@@ -11,7 +11,7 @@ library(HW625)
 data(mtcars)
 
 # For efficiency comparing
-#install.packages("bench")
+install.packages("bench")
 library(bench)
 ```
 
