@@ -3,7 +3,6 @@
 #' @description
 #' This function gives the SSE of the linear model.
 #'
-#'
 #' @param model linear model object
 #' @return SSE of the linear model
 #' @export
