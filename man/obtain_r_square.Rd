@@ -16,10 +16,7 @@ R square and adjusted R square of the linear model
 obtain_r_square
 }
 \examples{
-#load the mtcars dataset
 data(mtcars)
-
-#lit a linear regression model
 example_model <- lm(mpg ~ hp + wt, data = mtcars)
 
 #obtain R square and adjusted R square

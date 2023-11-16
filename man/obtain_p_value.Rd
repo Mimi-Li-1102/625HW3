@@ -10,16 +10,13 @@ obtain_p_value(model)
 \item{model}{linear model object}
 }
 \value{
-p values of each t-statstic for the linear model
+p values corresponding to each t-statistic for the linear model
 }
 \description{
 obtain_p_value
 }
 \examples{
-#load the mtcars dataset
 data(mtcars)
-
-#lit a linear regression model
 example_model <- lm(mpg ~ hp + wt, data = mtcars)
 
 #obtain p values

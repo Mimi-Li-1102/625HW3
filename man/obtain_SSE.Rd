@@ -16,10 +16,7 @@ SSE of the linear model
 obtain_SSE
 }
 \examples{
-#load the mtcars dataset
 data(mtcars)
-
-#lit a linear regression model
 example_model <- lm(mpg ~ hp + wt, data = mtcars)
 
 #obtain SSE

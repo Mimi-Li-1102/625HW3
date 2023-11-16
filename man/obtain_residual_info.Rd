@@ -16,10 +16,7 @@ residual standard error and degrees of freedom of the linear model
 obtain_residual_info
 }
 \examples{
-#load the mtcars dataset
 data(mtcars)
-
-#lit a linear regression model
 example_model <- lm(mpg ~ hp + wt, data = mtcars)
 
 #obtain residual standard error and degrees of freedom

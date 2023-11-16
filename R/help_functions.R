@@ -2,16 +2,13 @@
 #'
 #' @param model linear model object
 #' @return SSE of the linear model
+#' @export
 #' @examples
-#' #load the mtcars dataset
 #' data(mtcars)
-#'
-#' #lit a linear regression model
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)
 #'
 #' #obtain SSE
 #' obtain_SSE(example_model)
-#' @export
 obtain_SSE <- function(model){
   # Obtain residuals
   residual <- model$residuals
@@ -21,20 +18,18 @@ obtain_SSE <- function(model){
   return(sse)
 }
 
+
 #' obtain_se
 #'
 #' @param model linear model object
 #' @return coefficients standard errors of the linear model
+#' @export
 #' @examples
-#' #load the mtcars dataset
 #' data(mtcars)
-#'
-#' #lit a linear regression model
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)
 #'
 #' #obtain coefficients standard errors
 #' obtain_se(example_model)
-#' @export
 obtain_se <- function(model){
   # Get the variance-covariance matrix
   mtrx <- vcov(model)
@@ -44,39 +39,35 @@ obtain_se <- function(model){
   return(se)
 }
 
+
 #' obtain_t_stats
 #'
 #' @param model linear model object
 #' @return t statistics of the linear model
+#' @export
 #' @examples
-#' #load the mtcars dataset
 #' data(mtcars)
-#'
-#' #lit a linear regression model
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)
 #'
 #' #obtain t statistics
 #' obtain_t_stats(example_model)
-#' @export
 obtain_t_stats <- function(model){
   t_stats <- coef(model) / obtain_se(model)
   return(t_stats)
 }
 
+
 #' obtain_p_value
 #'
 #' @param model linear model object
-#' @return p values of each t-statstic for the linear model
+#' @return p values corresponding to each t-statistic for the linear model
+#' @export
 #' @examples
-#' #load the mtcars dataset
 #' data(mtcars)
-#'
-#' #lit a linear regression model
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)
 #'
 #' #obtain p values
 #' obtain_p_value(example_model)
-#' @export
 obtain_p_value <- function(model){
   # Obtain the degrees of freedom associated with the residuals
   df_resi <- df.residual(model)
@@ -88,21 +79,17 @@ obtain_p_value <- function(model){
 }
 
 
-
 #' obtain_residual_info
 #'
 #' @param model linear model object
 #' @return residual standard error and degrees of freedom of the linear model
+#' @export
 #' @examples
-#' #load the mtcars dataset
 #' data(mtcars)
-#'
-#' #lit a linear regression model
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)
 #'
 #' #obtain residual standard error and degrees of freedom
 #' obtain_residual_info(example_model)
-#' @export
 obtain_residual_info <- function(model){
   # Calculate residuals df
   df_resi <- df.residual(model)
@@ -113,20 +100,18 @@ obtain_residual_info <- function(model){
   return(list(residual_se = se, df_resi = df_resi))
 }
 
+
 #' obtain_r_square
 #'
 #' @param model linear model object
 #' @return R square and adjusted R square of the linear model
+#' @export
 #' @examples
-#' #load the mtcars dataset
 #' data(mtcars)
-#'
-#' #lit a linear regression model
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)
 #'
 #' #obtain R square and adjusted R square
 #' obtain_r_square(example_model)
-#' @export
 obtain_r_square <- function(model){
   # Obtain y_hat
   y_hat <- model$fitted.values
@@ -158,17 +143,14 @@ obtain_r_square <- function(model){
 #' obtain_F_stats
 #'
 #' @param model linear model object
-#' @return F statistic and its p-value of the linear model
+#' @return F statistic, df of residuals and the model, and the corresponding p-value.
+#' @export
 #' @examples
-#' #load the mtcars dataset
 #' data(mtcars)
-#'
-#' #lit a linear regression model
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)
 #'
 #' #obtain F statistic and its p-value
 #' obtain_f_stats(example_model)
-#' @export
 obtain_f_stats <- function(model){
   # Calculate SSR and SSE
   y_hat <- model$fitted.values

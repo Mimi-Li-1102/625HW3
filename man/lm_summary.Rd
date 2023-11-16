@@ -12,16 +12,14 @@ lm_summary(model, Clevel = 0.95)
 \item{Clevel}{the confidence level for the intervals. Default is 0.95.}
 }
 \value{
-an summary table with information of coefficient and additional model information.
+an summary information of coefficients, residuals, and additional model information.
 }
 \description{
-lm_summary
+This function produces output similar to \code{summary()}, with an additional parameter for specifying the confidence level.
+The result includes an extra column providing confidence intervals and an additional column indicating the significance of the p-value for each coefficient, determined by the specified confidence level.
 }
 \examples{
-#load the mtcars dataset
 data(mtcars)
-
-#fit a linear regression model
 example_model <- lm(mpg ~ hp + wt, data = mtcars)
 
 #obtain summary of the linear model

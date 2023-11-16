@@ -1,13 +1,14 @@
 #' lm_summary
 #'
+#' @description
+#' This function produces output similar to `summary()`, with an additional parameter for specifying the confidence level.
+#' The result includes an extra column providing confidence intervals and an additional column indicating the significance of the p-value for each coefficient, determined by the specified confidence level.
+#'
 #' @param model linear model object
 #' @param Clevel the confidence level for the intervals. Default is 0.95.
-#' @return an summary table with information of coefficient and additional model information.
+#' @return an summary information of coefficients, residuals, and additional model information.
 #' @examples
-#' #load the mtcars dataset
 #' data(mtcars)
-#'
-#' #fit a linear regression model
 #' example_model <- lm(mpg ~ hp + wt, data = mtcars)
 #'
 #' #obtain summary of the linear model
@@ -28,16 +29,6 @@ lm_summary <- function(model, Clevel = 0.95) {
   # Determine significance
   significant <- p_values < (1 - Clevel)
 
-  # Create a summary table with coefficients, intervals, and significance
-  summary_table <- data.frame(
-    Coefficient = names(coeff),
-    Estimate = coeff,
-    SE = se,
-    CI = sprintf("(%0.4f, %0.4f)", lower_b, upper_b),
-    t_Stat = t_stats,
-    p_Value = format(p_values, digits = 4, scientific = TRUE),
-    Significant = significant
-  )
 
   # Obtain the formula of the model
   formula <- as.character(formula(model))
@@ -82,6 +73,17 @@ lm_summary <- function(model, Clevel = 0.95) {
   # Print other information of the model
   cat("\nMultiple R-squared:", round(r_squared_info$r_square, 4), ",\tAdjusted R-squared:", round(r_squared_info$adj_r_square, 4), "\n")
   cat("F-statistic:", round(f_stat_info$f_statistic, 4), "on", f_stat_info$df_model, "and", f_stat_info$df_resi, "DF,  p-value:", format(f_stat_info$p_value, scientific = TRUE), "\n")
+
+  # Create a summary table with coefficients, intervals, and significance
+  summary_table <- data.frame(
+    Coefficient = names(coeff),
+    Estimate = coeff,
+    SE = se,
+    CI = sprintf("(%0.4f, %0.4f)", lower_b, upper_b),
+    t_Stat = t_stats,
+    p_Value = format(p_values, digits = 4, scientific = TRUE),
+    Significant = significant
+  )
 
   # Return the summary table invisibly
   invisible(summary_table)

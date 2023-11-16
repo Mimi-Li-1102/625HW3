@@ -10,16 +10,13 @@ obtain_f_stats(model)
 \item{model}{linear model object}
 }
 \value{
-F statistic and its p-value of the linear model
+F statistic, df of residuals and the model, and the corresponding p-value.
 }
 \description{
 obtain_F_stats
 }
 \examples{
-#load the mtcars dataset
 data(mtcars)
-
-#lit a linear regression model
 example_model <- lm(mpg ~ hp + wt, data = mtcars)
 
 #obtain F statistic and its p-value
