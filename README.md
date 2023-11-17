@@ -8,7 +8,7 @@
 
 ## Overview
 
-This package provides information specific to linear models. Its functions are similar to \`summary\`, but there are additional information, such as the confidence intervals.
+This package provides information specific to linear models. The function `lm_summary` produces output similar to `summary()`, with an additional parameter for specifying the confidence level, and the result includes an extra column providing confidence intervals and an additional column indicating the significance of the p-value for each coefficient, determined by the specified confidence level.
 
 -   `lm_summary` gives a summary of information for the linear model, including coefficients, residuals, and additional model information. The output is similar to \`summary\`.
 
@@ -69,6 +69,6 @@ print(R_sq)
 f_stats <- obtain_f_stats(model)
 print(f_stats)
 
-# Print the summary of the model
-lm_summary(model)
+# Apply lm_summary at confidence level 0.95
+lm_summary(model, 0.95)
 ```

@@ -40,11 +40,11 @@ lm_summary <- function(model, Clevel = 0.95) {
 
   # Print the formatted coefficient table
   cat("Coefficients:\n")
-  cat(sprintf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", "Coefficient", "Estimate", "SE", "CI", "t_Stat", "p_Value", "Significant"))
+  cat(sprintf("%-12s %-12s %-12s %-12s %-12s %-12s %-12s\n", "Coefficient", "Esti.", "SE", "CI", "t_Stat", "p_Value", "Signif."))
   for (i in seq_along(coeff)) {
-    cat(sprintf("%-15s %-15.4f %-15.4f %-15s %-15.4f %-15s %-15s\n",
+    cat(sprintf("%-11s %-11.4f %-11.4f %-11s %-11.4f %-11s %-11s\n",
                 names(coeff)[i], coeff[i], se[i],
-                sprintf("(%0.4f, %0.4f)", lower_b[i], upper_b[i]),
+                sprintf("(%0.3f, %0.3f)", lower_b[i], upper_b[i]),
                 t_stats[i],
                 format(p_values, digits = 4, scientific = TRUE)[i],
                 ifelse(significant[i], "TRUE", "FALSE")))
@@ -88,5 +88,4 @@ lm_summary <- function(model, Clevel = 0.95) {
   # Return the summary table invisibly
   invisible(summary_table)
 }
-
 

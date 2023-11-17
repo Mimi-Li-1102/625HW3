@@ -215,7 +215,7 @@ print(results2)
 
 ```{r}
 # Apply lm_summary at confidence level 0.95
-lm_summary(model)
+lm_summary(model, 0.95)
 ```
 
 Compare to `summary()`:
