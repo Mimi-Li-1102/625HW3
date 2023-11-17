@@ -8,7 +8,7 @@
 
 ## Overview
 
-This package provides information specific to linear models. Its functions are similar to \`summary\`, but there are additional information, such as the confidence intervals, and the values cannot be extracted from the summary table. To print the table, `cat()` is required.
+This package provides information specific to linear models. Its functions are similar to \`summary\`, but there are additional information, such as the confidence intervals.
 
 -   `lm_summary` gives a summary of information for the linear model, including coefficients, residuals, and additional model information. The output is similar to \`summary\`.
 
@@ -70,6 +70,5 @@ f_stats <- obtain_f_stats(model)
 print(f_stats)
 
 # Print the summary of the model
-table <- lm_summary(model)
-cat(table)
+lm_summary(model)
 ```

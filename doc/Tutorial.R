@@ -159,17 +159,8 @@ print(results2)
 
 ## -----------------------------------------------------------------------------
 # Apply lm_summary at confidence level 0.95
-smr <- lm_summary(model)
-cat(smr)
+lm_summary(model)
 
 ## -----------------------------------------------------------------------------
 model_summary
-
-## -----------------------------------------------------------------------------
-results <- bench::mark(
-  lm_summary(model),
-  model_summary,
-  check = FALSE
-)
-print(results)
 
