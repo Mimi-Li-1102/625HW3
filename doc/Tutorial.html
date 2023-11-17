@@ -367,8 +367,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 SSE               0    1ns    2.01e8        0B        0 10000     0     49.8µs
-## 2 check_sse         0    1ns    8.73e8        0B        0 10000     0     11.5µs
+## 1 SSE               0    1ns    2.33e8        0B        0 10000     0     42.9µs
+## 2 check_sse         0    1ns    2.47e8        0B        0 10000     0     40.5µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 </div>
 <div id="find-coefficients-standard-errors-of-the-linear-model" class="section level2">
@@ -391,8 +391,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 SE                0    1ns    1.01e8        0B        0 10000     0     99.4µs
-## 2 check_se          0    1ns    4.73e8        0B        0 10000     0     21.1µs
+## 1 SE                0    1ns    2.10e8        0B        0 10000     0    47.68µs
+## 2 check_se          0    1ns    1.15e9        0B        0 10000     0     8.71µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 </div>
 <div id="find-t-statistic-of-the-linear-model" class="section level2">
@@ -415,8 +415,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 t_stats           0    1ns    1.51e8        0B        0 10000     0    66.17µs
-## 2 check_t           0    1ns    1.23e9        0B        0 10000     0     8.15µs
+## 1 t_stats           0    1ns    3.03e8        0B        0 10000     0       33µs
+## 2 check_t           0    1ns    6.38e8        0B        0 10000     0     15.7µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 </div>
 <div id="find-p-values-of-each-t-statistic-for-the-linear-model" class="section level2">
@@ -439,8 +439,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 p_values          0    1ns    1.28e8        0B        0 10000     0    78.41µs
-## 2 check_p           0    1ns    1.14e9        0B        0 10000     0     8.78µs
+## 1 p_values          0    1ns    2.40e8        0B        0 10000     0     41.7µs
+## 2 check_p           0    1ns    5.32e8        0B        0 10000     0     18.8µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 </div>
 <div id="find-the-standard-error-and-degrees-of-freedom-for-the-residuals-in-the-linear-model" class="section level2">
@@ -471,8 +471,8 @@ the linear model:</h2>
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 resi_se$resi…  41ns   82ns    8.50e6        0B        0 10000     0     1.18ms
-## 2 check_resi_se     0    1ns    5.81e8        0B        0 10000     0    17.21µs
+## 1 resi_se$resi…  41ns   82ns    9.58e6        0B        0 10000     0     1.04ms
+## 2 check_resi_se     0    1ns    1.00e9        0B        0 10000     0     9.99µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>results2 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
 <span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  resi_se<span class="sc">$</span>df_resi,</span>
@@ -483,8 +483,8 @@ the linear model:</h2>
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 resi_se$df_r…  41ns   82ns    1.08e7        0B        0 10000     0    925.5µs
-## 2 check_resi_df     0    1ns    4.42e8        0B        0 10000     0     22.6µs
+## 1 resi_se$df_r…  41ns   82ns    9.56e6        0B        0 10000     0     1.05ms
+## 2 check_resi_df     0    1ns    9.80e8        0B        0 10000     0    10.21µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 </div>
 <div id="find-r-square-and-adjusted-r-square" class="section level2">
@@ -514,8 +514,8 @@ the linear model:</h2>
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 R_sq$r_square  41ns   82ns    8.43e6        0B        0 10000     0     1.19ms
-## 2 check_R_sq        0    1ns    2.09e8        0B        0 10000     0    47.91µs
+## 1 R_sq$r_square     0   82ns    7.88e6        0B        0 10000     0     1.27ms
+## 2 check_R_sq        0    1ns    1.86e8        0B        0 10000     0    53.72µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>results2 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
 <span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>  R_sq<span class="sc">$</span>adj_r_square,</span>
@@ -527,7 +527,7 @@ the linear model:</h2>
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
 ## 1 R_sq$adj_r_s…  41ns   82ns    9.62e6        0B        0 10000     0     1.04ms
-## 2 check_adj_R_…     0    1ns    4.97e8        0B        0 10000     0    20.13µs
+## 2 check_adj_R_…     0    1ns    1.42e9        0B        0 10000     0     7.02µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 </div>
 <div id="find-f-statistic-numerator-degrees-of-freedom-residuals-degrees-of-freedom-and-the-corresponding-p-value-of-the-linear-model" class="section level2">
@@ -564,8 +564,8 @@ freedom, and the corresponding p-value of the linear model:</h2>
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 f_stats$f_st…     0   82ns    6.71e6        0B        0 10000     0     1.49ms
-## 2 check_F           0    1ns    4.98e8        0B        0 10000     0    20.07µs
+## 1 f_stats$f_st…   1ns   82ns    9.00e6        0B        0 10000     0     1.11ms
+## 2 check_F           0    1ns    5.81e8        0B        0 10000     0    17.21µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>results2 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
 <span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a>  f_stats<span class="sc">$</span>df_model,</span>
@@ -576,8 +576,8 @@ freedom, and the corresponding p-value of the linear model:</h2>
 <pre><code>## # A tibble: 2 × 13
 ##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 ##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-## 1 f_stats$df_m…  41ns   82ns    9.76e6        0B        0 10000     0     1.02ms
-## 2 check_df          0    1ns    2.17e8        0B        0 10000     0    46.09µs
+## 1 f_stats$df_m…  41ns   82ns    9.99e6        0B        0 10000     0        1ms
+## 2 check_df          0    1ns    1.16e9        0B        0 10000     0      8.6µs
 ## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
 </div>
 <div id="obtain-the-summary-for-the-linear-model" class="section level2">
@@ -625,6 +625,12 @@ freedom, and the corresponding p-value of the linear model:</h2>
 ## Residual standard error: 2.435 on 27 degrees of freedom
 ## Multiple R-squared:  0.8579, Adjusted R-squared:  0.8368 
 ## F-statistic: 40.74 on 4 and 27 DF,  p-value: 4.589e-11</code></pre>
+<div id="while-it-is-challenging-to-directly-compare-the-two-summary-functions-all-the-values-lm_summary-produces-are-encompassed-within-other-functions-which-have-already-been-compared-with-the-original-function." class="section level3">
+<h3>While it is challenging to directly compare the two summary
+functions, all the values <code>lm_summary</code> produces are
+encompassed within other functions, which have already been compared
+with the original function.</h3>
+</div>
 </div>
 
 

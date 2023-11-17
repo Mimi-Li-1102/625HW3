@@ -223,3 +223,5 @@ Compare to `summary()`:
 ```{r}
 model_summary
 ```
+
+### While it is challenging to directly compare the two summary functions, all the values `lm_summary` produces are encompassed within other functions, which have already been compared with the original function.
