@@ -340,40 +340,201 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<p>Fit a linear model use mtcars dataset:</p>
+<div id="fit-a-linear-model-use-mtcars-data" class="section level2">
+<h2>Fit a linear model use mtcars data:</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Fit a linear model</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp <span class="sc">+</span> qsec <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span></code></pre></div>
-<p>Find SSE of the linear model:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">obtain_SSE</span>(model)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp <span class="sc">+</span> qsec <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Original `summary()` function</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>model_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)</span></code></pre></div>
+</div>
+<div id="find-sse-of-the-linear-model" class="section level2">
+<h2>Find SSE of the linear model:</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>SSE <span class="ot">&lt;-</span> <span class="fu">obtain_SSE</span>(model)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">print</span>(SSE)</span></code></pre></div>
 <pre><code>## [1] 160.0665</code></pre>
-<p>Find coefficients standard errors of the linear model:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">obtain_se</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Compare the result with the original function</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>check_sse <span class="ot">&lt;-</span> <span class="fu">sum</span>(model_summary<span class="sc">$</span>residuals <span class="sc">^</span> <span class="dv">2</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">all.equal</span>(check_sse, SSE)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Compare efficiency:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  SSE,</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  check_sse,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 SSE               0    1ns    4.76e8        0B        0 10000     0    21.02µs
+## 2 check_sse         0    1ns    1.44e9        0B        0 10000     0     6.95µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+</div>
+<div id="find-coefficients-standard-errors-of-the-linear-model" class="section level2">
+<h2>Find coefficients standard errors of the linear model:</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">obtain_se</span>(model)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">print</span>(SE)</span></code></pre></div>
 <pre><code>## (Intercept)          wt          hp        qsec          am 
 ##   9.3188688   0.8898986   0.0141506   0.4388703   1.3971471</code></pre>
-<p>Find t-statistic of the linear model:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">obtain_t_stats</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Compare the result with the original function</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>check_se <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>coefficients[, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">all.equal</span>(check_se, SE)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Compare efficiency:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  SE,</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  check_se,</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>)</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 SE                0    1ns    1.50e9        0B        0 10000     0     6.67µs
+## 2 check_se          0    1ns    1.49e9        0B        0 10000     0     6.72µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+</div>
+<div id="find-t-statistic-of-the-linear-model" class="section level2">
+<h2>Find t-statistic of the linear model:</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>t_stats <span class="ot">&lt;-</span> <span class="fu">obtain_t_stats</span>(model)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">print</span>(t_stats)</span></code></pre></div>
 <pre><code>## (Intercept)          wt          hp        qsec          am 
 ##    1.871492   -3.638726   -1.247052    1.847021    2.093913</code></pre>
-<p>Find p values of each t-statistic for the linear model:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">obtain_p_value</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Compare the result with the original function</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>check_t <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>coefficients[, <span class="st">&quot;t value&quot;</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">all.equal</span>(check_t, t_stats)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Compare efficiency:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  t_stats,</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  check_t,</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>)</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 t_stats           0    1ns    1.40e9        0B        0 10000     0     7.16µs
+## 2 check_t           0    1ns    1.47e9        0B        0 10000     0      6.8µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+</div>
+<div id="find-p-values-of-each-t-statistic-for-the-linear-model" class="section level2">
+<h2>Find p values of each t-statistic for the linear model:</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>p_values <span class="ot">&lt;-</span> <span class="fu">obtain_p_value</span>(model)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">print</span>(p_values)</span></code></pre></div>
 <pre><code>## (Intercept)          wt          hp        qsec          am 
 ## 0.072149342 0.001141407 0.223087932 0.075731202 0.045790788</code></pre>
-<p>Find residual standard error and degrees of freedom:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">obtain_residual_info</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># Compare the result with the original function</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>check_p <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>coefficients[, <span class="st">&quot;Pr(&gt;|t|)&quot;</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="fu">all.equal</span>(check_p, p_values)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Compare efficiency:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  p_values,</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  check_p,</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>)</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 p_values          0    1ns    1.44e9        0B        0 10000     0     6.96µs
+## 2 check_p           0    1ns    1.44e9        0B        0 10000     0     6.94µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+</div>
+<div id="find-the-standard-error-and-degrees-of-freedom-for-the-residuals-in-the-linear-model" class="section level2">
+<h2>Find the standard error and degrees of freedom for the residuals in
+the linear model:</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>resi_se <span class="ot">&lt;-</span> <span class="fu">obtain_residual_info</span>(model)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="fu">print</span>(resi_se)</span></code></pre></div>
 <pre><code>## $residual_se
 ## [1] 2.434828
 ## 
 ## $df_resi
 ## [1] 27</code></pre>
-<p>Find R-square and adjusted R-square:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">obtain_r_square</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="co"># Compare the residual standard error with the original function</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>check_resi_se <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>sigma</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="fu">all.equal</span>(resi_se<span class="sc">$</span>residual_se, check_resi_se)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="co"># Compare the degrees of freedom with the original function</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>check_resi_df <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>df[<span class="dv">2</span>]</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="fu">all.equal</span>(resi_se<span class="sc">$</span>df_resi, check_resi_df)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Compare efficiency:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>results1 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>  resi_se<span class="sc">$</span>residual_se,</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>  check_resi_se,</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>)</span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="fu">print</span>(results1)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 resi_se$resi…     0   82ns    1.22e7        0B        0 10000     0   819.02µs
+## 2 check_resi_se     0    1ns    1.25e9        0B        0 10000     0     8.03µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>results2 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  resi_se<span class="sc">$</span>df_resi,</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>  check_resi_df,</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>)</span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a><span class="fu">print</span>(results2)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 resi_se$df_r…     0   82ns    1.18e7        0B        0 10000     0    844.7µs
+## 2 check_resi_df     0    1ns    1.54e9        0B        0 10000     0      6.5µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+</div>
+<div id="find-r-square-and-adjusted-r-square" class="section level2">
+<h2>Find R-square and adjusted R-square:</h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>R_sq <span class="ot">&lt;-</span> <span class="fu">obtain_r_square</span>(model)</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a><span class="fu">print</span>(R_sq)</span></code></pre></div>
 <pre><code>## $r_square
 ## [1] 0.857851
 ## 
 ## $adj_r_square
 ## [1] 0.8367919</code></pre>
-<p>Find F statistic and its p-value of the linear model:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">obtain_f_stats</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="co"># Compare R-square with the original function</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>check_R_sq <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>r.squared</span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a><span class="fu">all.equal</span>(R_sq<span class="sc">$</span>r_square, check_R_sq)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="co"># Compare adjusted R-square with the original function</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>check_adj_R_sq <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>adj.r.squared</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="fu">all.equal</span>(R_sq<span class="sc">$</span>adj_r_square, check_adj_R_sq)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Compare efficiency:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>results1 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  R_sq<span class="sc">$</span>r_square,</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>  check_R_sq,</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>)</span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a><span class="fu">print</span>(results1)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 R_sq$r_square     0   82ns    1.23e7        0B        0 10000     0    810.5µs
+## 2 check_R_sq        0    1ns    1.47e9        0B        0 10000     0      6.8µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>results2 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>  R_sq<span class="sc">$</span>adj_r_square,</span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>  check_adj_R_sq,</span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>)</span>
+<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a><span class="fu">print</span>(results2)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 R_sq$adj_r_s…     0   82ns    1.14e7        0B        0 10000     0   873.71µs
+## 2 check_adj_R_…     0    1ns    1.43e9        0B        0 10000     0     6.98µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+</div>
+<div id="find-f-statistic-numerator-degrees-of-freedom-residuals-degrees-of-freedom-and-the-corresponding-p-value-of-the-linear-model" class="section level2">
+<h2>Find F statistic, numerator degrees of freedom, residuals degrees of
+freedom, and the corresponding p-value of the linear model:</h2>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>f_stats <span class="ot">&lt;-</span> <span class="fu">obtain_f_stats</span>(model)</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a><span class="fu">print</span>(f_stats)</span></code></pre></div>
 <pre><code>## $f_statistic
 ## [1] 40.73539
 ## 
@@ -385,33 +546,102 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## 
 ## $p_value
 ## [1] &quot;4.589e-11&quot;</code></pre>
-<p>Obtain the summary for the linear model:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Apply lm_summary at confidence level 0.99</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>info_lm <span class="ot">&lt;-</span> <span class="fu">lm_summary</span>(model, <span class="fl">0.99</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="co"># Compare F statistic with the original function</span></span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>check_F <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>fstatistic[<span class="dv">1</span>]</span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a><span class="fu">all.equal</span>(f_stats<span class="sc">$</span>f_statistic, check_F, <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="co"># Compare numerator degrees of freedom with the original function</span></span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>check_df <span class="ot">&lt;-</span> model_summary<span class="sc">$</span>fstatistic[<span class="dv">2</span>]</span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a><span class="fu">all.equal</span>(f_stats<span class="sc">$</span>df_model, check_df, <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Compare efficiency:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>results1 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a>  f_stats<span class="sc">$</span>f_statistic,</span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>  check_F,</span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a>)</span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a><span class="fu">print</span>(results1)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 f_stats$f_st…     0   82ns    1.00e7        0B        0 10000     0   999.91µs
+## 2 check_F           0    1ns    1.10e9        0B        0 10000     0     9.07µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>results2 <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a>  f_stats<span class="sc">$</span>df_model,</span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>  check_df,</span>
+<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb54-5"><a href="#cb54-5" tabindex="-1"></a>)</span>
+<span id="cb54-6"><a href="#cb54-6" tabindex="-1"></a><span class="fu">print</span>(results2)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 f_stats$df_m…  41ns   82ns    9.70e6        0B        0 10000     0     1.03ms
+## 2 check_df          0    1ns    1.36e9        0B        0 10000     0     7.36µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+</div>
+<div id="obtain-the-summary-for-the-linear-model" class="section level2">
+<h2>Obtain the summary for the linear model:</h2>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="co"># Apply lm_summary at confidence level 0.95</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a>smr <span class="ot">&lt;-</span> <span class="fu">lm_summary</span>(model)</span>
+<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a><span class="fu">cat</span>(smr)</span></code></pre></div>
 <pre><code>## Call:
-## ~ mpg wt + hp + qsec + am 
-##  
+## ~
+## mpg
+## wt + hp + qsec + am
+## 
 ## Coefficients:
-## Coefficient     Estimate        SE              CI              t_Stat          p_Value         Significant    
-## (Intercept)     17.4402         9.3189          (-6.5636, 41.4440) 1.8715          7.215e-02       FALSE          
-## wt              -3.2381         0.8899          (-5.5303, -0.9459) -3.6387         1.141e-03       TRUE           
-## hp              -0.0176         0.0142          (-0.0541, 0.0188) -1.2471         2.231e-01       FALSE          
-## qsec            0.8106          0.4389          (-0.3199, 1.9411) 1.8470          7.573e-02       FALSE          
-## am              2.9255          1.3971          (-0.6733, 6.5243) 2.0939          4.579e-02       FALSE          
+## Coeff        Est.       SE         CI                  t_Stat     p_Value    Signif.   
+## (Intercept)  17.4402    9.3189     (-0.824, 35.705)    1.8715     7.215e-02  FALSE     
+## wt           -3.2381    0.8899     (-4.982, -1.494)    -3.6387    1.141e-03  TRUE      
+## hp           -0.0176    0.0142     (-0.045, 0.010)     -1.2471    2.231e-01  FALSE     
+## qsec         0.8106     0.4389     (-0.050, 1.671)     1.8470     7.573e-02  FALSE     
+## am           2.9255     1.3971     (0.187, 5.664)      2.0939     4.579e-02  TRUE      
 ## 
 ## Residuals:
 ## Min             1Q              Median          3Q              Max            
 ## -3.497          -1.590          -0.112          1.180           4.540          
 ## Residual standard error: 2.4348 on 27 degrees of freedom
 ## 
-## Multiple R-squared: 0.8579 , Adjusted R-squared: 0.8368 
+## Multiple R-squared: 0.8579 , Adjusted R-squared: 0.8368
 ## F-statistic: 40.7354 on 4 and 27 DF,  p-value: 4.589e-11</code></pre>
-<p>Extract part of information from the summary table of
-coefficients:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Obtain estimates</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>est <span class="ot">&lt;-</span> info_lm<span class="sc">$</span>Estimate</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="fu">print</span>(est)</span></code></pre></div>
-<pre><code>## [1] 17.44019110 -3.23809682 -0.01764654  0.81060254  2.92550394</code></pre>
+<p>Compare to <code>summary()</code>:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>model_summary</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + hp + qsec + am, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4975 -1.5902 -0.1122  1.1795  4.5404 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 17.44019    9.31887   1.871  0.07215 . 
+## wt          -3.23810    0.88990  -3.639  0.00114 **
+## hp          -0.01765    0.01415  -1.247  0.22309   
+## qsec         0.81060    0.43887   1.847  0.07573 . 
+## am           2.92550    1.39715   2.094  0.04579 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.435 on 27 degrees of freedom
+## Multiple R-squared:  0.8579, Adjusted R-squared:  0.8368 
+## F-statistic: 40.74 on 4 and 27 DF,  p-value: 4.589e-11</code></pre>
+<p>Compare efficiency:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a>  <span class="fu">lm_summary</span>(model),</span>
+<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a>  model_summary,</span>
+<span id="cb60-4"><a href="#cb60-4" tabindex="-1"></a>  <span class="at">check =</span> <span class="cn">FALSE</span></span>
+<span id="cb60-5"><a href="#cb60-5" tabindex="-1"></a>)</span>
+<span id="cb60-6"><a href="#cb60-6" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 13
+##   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+##   &lt;bch:expr&gt;    &lt;bch&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+## 1 lm_summary(m… 360µs  373µs    2.62e3    11.9KB     36.5  1224    17   466.39ms
+## 2 model_summary     0    1ns    1.58e9        0B      0   10000     0     6.32µs
+## # ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</code></pre>
+</div>
 
 
 

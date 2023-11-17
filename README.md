@@ -8,7 +8,7 @@
 
 ## Overview
 
-This package provides information specific to linear models. Its functions are similar to \`summary\`, but the information that can be extracted is slightly different.
+This package provides information specific to linear models. Its functions are similar to \`summary\`, but there are additional information, such as the confidence intervals, and the values cannot be extracted from the summary table. To print the table, `cat()` is required.
 
 -   `lm_summary` gives a summary of information for the linear model, including coefficients, residuals, and additional model information. The output is similar to \`summary\`.
 
@@ -29,9 +29,47 @@ This package provides information specific to linear models. Its functions are s
 ## Installation
 
 ```{r}
-install.packages("HW625")
+remotes::install_github("https://github.com/Mimi-Li-1102/HW625.git")
 ```
 
 ## Usage
 
-For detailed examples and use cases, please refer to the vignettes.
+```{r}
+library(HW625)
+data(mtcars)
+
+# Fit a linear model
+model <- lm(mpg ~ wt + hp + qsec + am, data = mtcars)
+
+# Find SSE of the linear model
+SSE <- obtain_SSE(model)
+print(SSE)
+
+# Find the standard errors for each coefficient in the linear model
+SE <- obtain_se(model)
+print(SE)
+
+# Find the t-statistics for each coefficient in the linear model
+t_stats <- obtain_t_stats(model)
+print(t_stats)
+
+# Find the p-values corresponding to the t-statistics for each coefficient in the linear model
+p_values <- obtain_p_value(model)
+print(p_values)
+
+# Find the standard error and degrees of freedom for the residuals in the linear model
+resi_se <- obtain_residual_info(model)
+print(resi_se)
+
+# Find R-square and adjusted R-square
+R_sq <- obtain_r_square(model)
+print(R_sq)
+
+# Find F statistic, numerator degrees of freedom, residuals degrees of freedom, and the corresponding p-value of the linear model
+f_stats <- obtain_f_stats(model)
+print(f_stats)
+
+# Print the summary of the model
+table <- lm_summary(model)
+cat(table)
+```
