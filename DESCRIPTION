@@ -3,7 +3,7 @@ Title: Summary of Information For Linear Regression Model
 Version: 0.0.0.9000
 Author: Mimi Li (mimili@umich.edu)
 Maintainer: Mimi Li <mimili@umich.edu>
-Description: The YourPackageName R package provides a set of functions to enhance linear regression analysis in R. It includes tools for calculating and summarizing various statistical measures, including coefficients, standard errors, t-statistics, p-values, confidence intervals, residual information, R-squared values, and F-statistics.
+Description: The R package provides a set of functions to enhance linear regression analysis in R. It includes tools for calculating and summarizing various statistical measures, including coefficients, standard errors, t-statistics, p-values, confidence intervals, residual information, R-squared values, and F-statistics.
 Suggests:
     knitr,
     rmarkdown,
@@ -22,5 +22,5 @@ Key Functions:
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE, collate = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Config/testthat/edition: 3
